@@ -88,12 +88,11 @@ body
 }
 .profile-img
 {
-	height: 700px;
+	height: 600px;
 	margin: 5px;
-	margin-top: -50px;
+	margin-top: -10px;
 	margin-bottom: -70px;	
 }
-
 .navbar-toggler
 {
 	outline: none !important;
