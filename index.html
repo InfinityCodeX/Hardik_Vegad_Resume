@@ -87,7 +87,51 @@
 <script src="smooth-scroll.js"></script>
 
 <script>var scroll=new SmoothScroll('a[href*="#"]');</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const slides = Array.from(document.querySelectorAll('#slider input[name="slider"]'));
+  const prevButton = document.querySelector('.slider-arrow.left');
+  const nextButton = document.querySelector('.slider-arrow.right');
 
+  if (!slides.length) return;
+
+  let activeIndex = slides.findIndex((slide) => slide.checked);
+  if (activeIndex === -1) activeIndex = 0;
+
+  function setActiveSlide(index) {
+    activeIndex = (index + slides.length) % slides.length;
+    slides[activeIndex].checked = true;
+  }
+
+  function cycleSlides() {
+    setActiveSlide(activeIndex + 1);
+  }
+
+  let intervalId = setInterval(cycleSlides, 2200);
+
+  slides.forEach((slide, index) => {
+    slide.addEventListener('change', function () {
+      activeIndex = index;
+    });
+  });
+
+  if (prevButton) {
+    prevButton.addEventListener('click', function () {
+      clearInterval(intervalId);
+      setActiveSlide(activeIndex - 1);
+      intervalId = setInterval(cycleSlides, 2200);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', function () {
+      clearInterval(intervalId);
+      setActiveSlide(activeIndex + 1);
+      intervalId = setInterval(cycleSlides, 2200);
+    });
+  }
+});
+</script>
 
 
 <!--------Header Section--------------->
@@ -171,28 +215,32 @@ for creating innovative AI solutions. My goal in this fast-moving industry of Ar
 
 <br><br>
 
-<section id="slider">
-  <input type="radio" name="slider" id="s1">
-  <input type="radio" name="slider" id="s2">
-  <input type="radio" name="slider" id="s3" checked>
-  <input type="radio" name="slider" id="s4">
-  <input type="radio" name="slider" id="s5">
-  <label for="s1" id="slide1">
-  	<img src="e.png" height="100%" width="100%">
-  </label>
-  <label for="s2" id="slide2">
-  	  	<img src="c.png" height="100%" width="100%">
-  </label>
-  <label for="s3" id="slide3">
-  	  	<img src="a.png" height="100%" width="100%" checked>
-  </label>
-  <label for="s4" id="slide4">
-  	  	<img src="b.png" height="100%" width="100%">
-  </label>
-  <label for="s5" id="slide5">
-  	<img src="x.png" height="100%" width="100%">
-  </label>
-</section>
+<div style="position: relative;">
+  <button type="button" class="slider-arrow left" aria-label="Previous slide" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); z-index:3; border:none; background:rgba(0,0,0,0.45); color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:22px; line-height:1;">&#10094;</button>
+  <button type="button" class="slider-arrow right" aria-label="Next slide" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); z-index:3; border:none; background:rgba(0,0,0,0.45); color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:22px; line-height:1;">&#10095;</button>
+  <section id="slider">
+    <input type="radio" name="slider" id="s1">
+    <input type="radio" name="slider" id="s2">
+    <input type="radio" name="slider" id="s3" checked>
+    <input type="radio" name="slider" id="s4">
+    <input type="radio" name="slider" id="s5">
+    <label for="s1" id="slide1">
+    	<img src="e.png" height="100%" width="100%">
+    </label>
+    <label for="s2" id="slide2">
+    	  	<img src="c.png" height="100%" width="100%">
+    </label>
+    <label for="s3" id="slide3">
+    	  	<img src="a.png" height="100%" width="100%" checked>
+    </label>
+    <label for="s4" id="slide4">
+    	  	<img src="b.png" height="100%" width="100%">
+    </label>
+    <label for="s5" id="slide5">
+    	<img src="x.png" height="100%" width="100%">
+    </label>
+  </section>
+</div>
 <br/>
 <br/>
 
